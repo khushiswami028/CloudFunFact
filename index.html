@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cloud Fun Facts</title>
+<style>
+  body {
+    font-family: Arial;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    max-width: 450px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  button {
+    background: #6a11cb;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>☁ Cloud Fun Fact</h2>
+  <p id="fact">Loading...</p>
+  <button onclick="getFact()">Generate Another Fact</button>
+</div>
+
+<script>
+async function getFact() {
+  try {
+    const res = await fetch("https://fbr3eiv5ye.execute-api.ap-northeast-1.amazonaws.com/dev");
+    const data = await res.json();
+    document.getElementById("fact").innerText = data.fact;
+  } catch (err) {
+    console.log("Error:", err);
+    document.getElementById("fact").innerText = "Failed to load fact.";
+  }
+}
+getFact();
+</script>
+</body>
+</html>
